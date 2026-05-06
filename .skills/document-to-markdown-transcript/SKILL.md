@@ -32,6 +32,8 @@ optional:
 - Use this skill when a document should be converted into markdown for faster
   later agent processing instead of repeatedly reading the original binary or
   page-rendered file.
+- Prefer the bundled script for deterministic local extraction:
+  `python3 .skills/document-to-markdown-transcript/scripts/document_to_markdown_transcript.py <input-path> <output-markdown>`
 - Treat `input-path` as the original source document. Do not modify it.
 - Treat `output-markdown` as the normalized transcript path.
 - If `output-markdown` exists and `overwrite=false`, reuse it and report that
