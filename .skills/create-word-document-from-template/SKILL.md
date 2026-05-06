@@ -1,7 +1,11 @@
 ---
 name: create-word-document-from-template
-description: Create a DOCX document from markdown using a user-supplied or context-defined Word template.
+description: Create a DOCX document from markdown using a user-supplied or context-defined Word template. #use/skillbag-python-ensure
 dependencies:
+  - name: skillbag-python-ensure
+    source: git@github.com:Skillbag-ai/skillbag-utils.git
+    version: main
+    required: true
   - name: document-to-markdown-transcript
     required: false
 allowed-tools: pandoc libreoffice soffice textutil python3 python
@@ -46,6 +50,13 @@ optional:
   preserves headings, paragraphs, bullet lists, numbered lists, code blocks,
   and pipe tables. Prefer `pandoc --reference-doc <template-path>` when
   available.
+- When using the bundled helper script, run `skillbag-python-ensure` first and
+  execute:
+
+  ```bash
+  python3 .skills/create-word-document-from-template/scripts/render_markdown_docx.py <markdown-source> <output-docx> --template <template-path> [--subtitle "..."] [--overwrite]
+  ```
+
 - If `document-subtitle` is supplied and the converter does not support a
   native subtitle field, add it to the markdown-derived document in a minimal,
   template-compatible way rather than hand-tuning styles.

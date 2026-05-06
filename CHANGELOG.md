@@ -16,6 +16,8 @@ The format is intentionally simple while the project remains a draft.
   companion notes and optional Mermaid representations.
 - Added `create-word-document-from-template` for generating DOCX files from
   markdown using a user-supplied or context-defined Word template.
+- Added bundled Python helper scripts for `create-word-document-from-template`
+  and `markdown-link-hygiene`, with `skillbag-python-ensure` dependencies.
 - Rewrote `.skills/SKILLS.md` as a strict sorted SkillBag catalog.
 
 ## v0.1.0

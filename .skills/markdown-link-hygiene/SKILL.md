@@ -1,6 +1,12 @@
 ---
 name: markdown-link-hygiene
-description: Audit or rewrite local markdown links so workspace-absolute file targets become portable relative links.
+description: Audit or rewrite local markdown links so workspace-absolute file targets become portable relative links. #use/skillbag-python-ensure
+dependencies:
+  - name: skillbag-python-ensure
+    source: git@github.com:Skillbag-ai/skillbag-utils.git
+    version: main
+    required: true
+allowed-tools: python3 python
 metadata:
   author: backupdev
   version: 1.0.0
@@ -45,6 +51,13 @@ optional:
   - leave links outside `root-path` unchanged
 - After rewrite, re-scan the same scope and report whether any workspace-
   absolute local markdown links remain.
+- Run the bundled helper script after `skillbag-python-ensure`:
+
+  ```bash
+  python3 .skills/markdown-link-hygiene/scripts/markdown_link_hygiene.py --root-path <root-path> [--scope-path <scope-path>] --mode audit
+  python3 .skills/markdown-link-hygiene/scripts/markdown_link_hygiene.py --root-path <root-path> [--scope-path <scope-path>] --mode rewrite
+  ```
+
 - If a repeated document-generation workflow creates non-portable links,
   mention the likely source workflow so it can be fixed separately.
 
