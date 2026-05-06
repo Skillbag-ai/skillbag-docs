@@ -16,6 +16,76 @@ one organization's filing conventions.
 
 ## Available Skills
 
+### [create-diagrams](./.skills/create-diagrams/SKILL.md)
+
+Creates or updates diagram artifacts with a markdown companion note and an
+optional Mermaid representation. Use this when the diagram should be maintained
+as a reusable artifact instead of a one-off inline sketch.
+
+Key parameters:
+
+- `diagram-title`, `diagram-path`, and `diagram-scope` are required
+- `diagram-type` defaults to `mermaid`
+- `source-artifacts` can record the evidence or source material used
+- `companion-note-path` can override the default sibling markdown note path
+
+### [create-word-document-from-template](./.skills/create-word-document-from-template/SKILL.md)
+
+Creates a DOCX document from markdown using a user-supplied or context-defined
+Word template. It treats markdown as the source of truth and validates the
+generated document after conversion.
+
+Key parameters:
+
+- `markdown-source` and `output-docx` are required
+- `template-path` can be supplied directly
+- `template-context-key` defaults to `DOCX_TEMPLATE_PATH`
+- `overwrite` defaults to `false`
+
+### [document-to-markdown-transcript](./.skills/document-to-markdown-transcript/SKILL.md)
+
+Creates a normalized markdown transcript from PDF, Word, ODT, image, text, or
+similar document sources so agents can later process the markdown instead of
+re-reading the original binary or rendered document.
+
+Key parameters:
+
+- `input-path` and `output-markdown` are required
+- `language` defaults to `eng`
+- `force-ocr` defaults to `false`
+- `include-metadata` defaults to `true`
+
+Behavior:
+
+- uses `skillbag-pdf-ocr` when a PDF needs OCR
+- preserves headings, lists, links, and tables where detectable
+- marks uncertain or unreadable content instead of inventing text
+- recommends `extract-structured-tables` when a table-heavy source loses
+  structure during transcript generation
+
+### [extract-structured-tables](./.skills/extract-structured-tables/SKILL.md)
+
+Extracts table-dominant documents into markdown tables and optional spreadsheet
+or CSV derivatives.
+
+Key parameters:
+
+- `source-path` and `output-markdown` are required
+- `output-spreadsheet` can request a workbook
+- `output-csv-dir` can request one CSV per logical table
+- `language` defaults to `eng`
+
+### [markdown-link-hygiene](./.skills/markdown-link-hygiene/SKILL.md)
+
+Audits or rewrites local markdown links so workspace-absolute file targets
+become portable relative links.
+
+Key parameters:
+
+- `root-path` defaults to `.`
+- `mode` defaults to `audit` and can be `audit` or `rewrite`
+- `scope-path` can limit the scan
+
 ### [skillbag-pdf-ocr](./.skills/skillbag-pdf-ocr/SKILL.md)
 
 Checks whether a PDF already has a usable text layer and creates an OCR-backed
@@ -48,7 +118,6 @@ These areas are intentionally documented as roadmap, not as installed skills.
 Only skills listed in [`.skills/SKILLS.md`](./.skills/SKILLS.md) are currently
 available.
 
-- PDF text extraction and structured extraction
 - PDF splitting, merging, compression, and repair
 - PDF/A and archival validation workflows
 - Word document inspection and conversion helpers
@@ -66,13 +135,16 @@ Example dependency declaration:
 
 ```yaml
 dependencies:
+  - name: document-to-markdown-transcript
+    version: main
+    source: git@github.com:Skillbag-ai/skillbag-docs.git
   - name: skillbag-pdf-ocr
     version: main
     source: git@github.com:Skillbag-ai/skillbag-docs.git
 ```
 
-`skillbag-pdf-ocr` also declares a dependency on
-`skillbag-python-ensure` from
+Some document skills may compose with other skills in this repository.
+`skillbag-pdf-ocr` declares a dependency on `skillbag-python-ensure` from
 [`skillbag-utils`](https://github.com/Skillbag-ai/skillbag-utils), because it
 uses a bundled Python helper script.
 

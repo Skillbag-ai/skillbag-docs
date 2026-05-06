@@ -1,4 +1,4 @@
-SKILLBAG DOCS v0.1.0
+SKILLBAG DOCS v0.2.0
 
 This repository is a `SKILLBAG` source.
 Distributed document skills live under `.skills/`.
