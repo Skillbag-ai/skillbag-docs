@@ -4,6 +4,11 @@ All notable changes to this repository should be documented in this file.
 
 The format is intentionally simple while the project remains a draft.
 
+## v0.2.1
+
+- Added EPUB extraction to `document-to-markdown-transcript` using local
+  `pandoc`.
+
 ## v0.2.0
 
 - Added `document-to-markdown-transcript` for creating normalized markdown

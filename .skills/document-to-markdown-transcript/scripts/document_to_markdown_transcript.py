@@ -19,6 +19,7 @@ from pathlib import Path
 TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".csv", ".json", ".jsonl", ".yaml", ".yml"}
 PDF_SUFFIXES = {".pdf"}
 WORD_SUFFIXES = {".docx", ".doc", ".odt", ".rtf"}
+EPUB_SUFFIXES = {".epub"}
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".gif"}
 
 
@@ -52,6 +53,13 @@ def extract_word(path: Path) -> tuple[str, str]:
     return "", "no pandoc or textutil available; document transcript not generated"
 
 
+def extract_epub(path: Path) -> tuple[str, str]:
+    if not shutil.which("pandoc"):
+        return "", "pandoc not available; EPUB transcript not generated"
+    stdout, _ = run_command(["pandoc", str(path), "-t", "markdown"])
+    return stdout, "pandoc epub markdown"
+
+
 def extract_image(path: Path, language: str) -> tuple[str, str]:
     if not shutil.which("tesseract"):
         return "", "tesseract not available; image transcript not generated"
@@ -67,6 +75,8 @@ def extract_text(path: Path, language: str) -> tuple[str, str]:
         return extract_pdf(path)
     if suffix in WORD_SUFFIXES:
         return extract_word(path)
+    if suffix in EPUB_SUFFIXES:
+        return extract_epub(path)
     if suffix in IMAGE_SUFFIXES:
         return extract_image(path, language)
     return "", f"unsupported source type: {suffix or '<none>'}"

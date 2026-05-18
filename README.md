@@ -1,8 +1,8 @@
 # SkillBag Docs
 
 SkillBag Docs is a companion SkillBag repository for reusable document
-processing skills. It focuses on workflows around PDFs and other office
-document formats such as Word and ODT.
+processing skills. It focuses on workflows around PDFs, EPUBs, and other
+office document formats such as Word and ODT.
 
 This repository is itself a valid SkillBag source:
 
@@ -44,9 +44,9 @@ Key parameters:
 
 ### [document-to-markdown-transcript](./.skills/document-to-markdown-transcript/SKILL.md)
 
-Creates a normalized markdown transcript from PDF, Word, ODT, image, text, or
-similar document sources so agents can later process the markdown instead of
-re-reading the original binary or rendered document.
+Creates a normalized markdown transcript from PDF, EPUB, Word, ODT, image,
+text, or similar document sources so agents can later process the markdown
+instead of re-reading the original binary or rendered document.
 
 Key parameters:
 
@@ -58,6 +58,7 @@ Key parameters:
 Behavior:
 
 - uses `skillbag-pdf-ocr` when a PDF needs OCR
+- uses `pandoc` for EPUB conversion
 - preserves headings, lists, links, and tables where detectable
 - marks uncertain or unreadable content instead of inventing text
 - recommends `extract-structured-tables` when a table-heavy source loses
