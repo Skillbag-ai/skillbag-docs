@@ -1,6 +1,6 @@
 ---
 name: document-to-markdown-transcript
-description: Create a normalized markdown transcript from PDF, Word, ODT, image, text, or similar document sources. #use/skillbag-pdf-ocr
+description: Create a normalized markdown transcript from PDF, EPUB, Word, ODT, image, text, or similar document sources. #use/skillbag-pdf-ocr
 dependencies:
   - name: skillbag-pdf-ocr
     required: false
@@ -42,9 +42,9 @@ optional:
   - PDF with usable text: extract text with layout-aware settings when helpful.
   - PDF without usable text or when `force-ocr=true`: use
     `skillbag-pdf-ocr` first, then extract text from the OCR-backed PDF.
-  - Word or ODT documents: use `pandoc`, LibreOffice, `textutil`, or another
-    available local converter to preserve headings, lists, tables, and links
-    as markdown when possible.
+  - Word, ODT, or EPUB documents: use `pandoc`, LibreOffice, `textutil`, or
+    another available local converter to preserve headings, lists, tables, and
+    links as markdown when possible. EPUB extraction requires `pandoc`.
   - Images: use OCR with `language`, then normalize the result into markdown.
   - Plain text or existing markdown: copy or normalize the content without
     inventing structure.
